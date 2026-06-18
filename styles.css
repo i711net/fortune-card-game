@@ -1,0 +1,645 @@
+:root {
+  --bg: #101215;
+  --panel: rgba(27, 30, 33, 0.86);
+  --panel-strong: #1b1f23;
+  --card: #fbf8ef;
+  --ink: #f5efe0;
+  --muted: #b9ad99;
+  --line: rgba(215, 181, 104, 0.28);
+  --gold: #d7b568;
+  --red: #b73535;
+  --green: #4f9d7a;
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif;
+  background:
+    radial-gradient(circle at 52% 18%, rgba(183, 53, 53, 0.2), transparent 28rem),
+    linear-gradient(135deg, #0c0f12 0%, #171a1d 50%, #0f1513 100%);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.app-shell {
+  width: min(1440px, 100%);
+  margin: 0 auto;
+  padding: 28px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: clamp(30px, 4vw, 54px);
+  line-height: 1.04;
+  letter-spacing: 0;
+}
+
+.topbar p,
+.panel-heading p,
+.now-panel p {
+  margin-top: 8px;
+  color: var(--muted);
+  line-height: 1.65;
+  font-size: 14px;
+}
+
+.game-grid {
+  display: grid;
+  grid-template-columns: 330px minmax(430px, 1fr) 360px;
+  gap: 18px;
+  align-items: stretch;
+}
+
+.control-panel,
+.result-panel,
+.card-table {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+.control-panel,
+.result-panel {
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.panel-heading h2,
+.now-panel h2 {
+  font-size: 19px;
+  line-height: 1.25;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 22px 0;
+}
+
+.field-grid.compact {
+  margin: 0;
+}
+
+label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+input,
+select {
+  width: 100%;
+  height: 44px;
+  border: 1px solid rgba(215, 181, 104, 0.25);
+  border-radius: 6px;
+  color: var(--ink);
+  background: rgba(0, 0, 0, 0.26);
+  padding: 0 12px;
+  outline: none;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(215, 181, 104, 0.14);
+}
+
+.now-panel {
+  display: grid;
+  gap: 14px;
+  margin-bottom: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+time {
+  display: block;
+  color: var(--gold);
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+.time-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.primary-button,
+.ghost-button {
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.primary-button {
+  width: 100%;
+  min-height: 48px;
+  color: #180c08;
+  background: linear-gradient(135deg, #f2d584, #b98a2d);
+  font-weight: 700;
+}
+
+.ghost-button {
+  min-height: 42px;
+  padding: 0 16px;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line);
+}
+
+.ghost-button.small {
+  min-height: 38px;
+  white-space: nowrap;
+}
+
+.primary-button:hover,
+.ghost-button:hover {
+  transform: translateY(-1px);
+}
+
+.card-table {
+  position: relative;
+  overflow: hidden;
+  min-height: 620px;
+  border-radius: 8px;
+  padding: 28px;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    radial-gradient(circle at center, rgba(79, 157, 122, 0.2), transparent 24rem),
+    #151916;
+  background-size: 36px 36px, 36px 36px, auto, auto;
+}
+
+.table-glow {
+  position: absolute;
+  inset: 64px;
+  border: 1px solid rgba(215, 181, 104, 0.16);
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.spread-row {
+  position: relative;
+  z-index: 1;
+}
+
+.spread-row + .spread-row {
+  margin-top: 42px;
+}
+
+.spread-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  color: var(--muted);
+}
+
+.spread-title span {
+  color: var(--gold);
+  font-size: 13px;
+}
+
+.spread-title strong {
+  color: var(--ink);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(82px, 1fr));
+  gap: 14px;
+}
+
+.fortune-card {
+  position: relative;
+  min-height: 198px;
+  border-radius: 8px;
+  padding: 12px;
+  color: #151515;
+  background: var(--card);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.34);
+  transform: translateY(12px) rotate(var(--tilt));
+  opacity: 0;
+  animation: reveal 0.52s ease forwards;
+}
+
+.fortune-card::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid rgba(35, 28, 18, 0.18);
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.fortune-card.red {
+  color: var(--red);
+}
+
+.fortune-card.black {
+  color: #171717;
+}
+
+.fortune-card.joker {
+  color: #111;
+  background:
+    linear-gradient(135deg, rgba(183, 53, 53, 0.16), transparent 48%),
+    linear-gradient(315deg, rgba(79, 157, 122, 0.18), transparent 52%),
+    var(--card);
+}
+
+.card-position {
+  color: #76684e;
+  font-size: 12px;
+}
+
+.card-rank {
+  margin-top: 8px;
+  font-size: 38px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.card-suit {
+  position: absolute;
+  right: 16px;
+  bottom: 12px;
+  font-size: 58px;
+  line-height: 1;
+  opacity: 0.9;
+}
+
+.card-name {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 18px;
+  color: #5a503e;
+  font-size: 12px;
+}
+
+.score-board {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 18px 0;
+}
+
+.score-board div {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.score-board span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.score-board strong {
+  display: block;
+  margin-top: 5px;
+  color: var(--gold);
+  font-size: 22px;
+}
+
+.reading-list {
+  display: grid;
+  gap: 12px;
+}
+
+.reading-item {
+  border-left: 3px solid var(--gold);
+  padding: 12px 12px 12px 14px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.reading-item h3 {
+  margin: 0 0 6px;
+  font-size: 15px;
+  line-height: 1.35;
+}
+
+.reading-item p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.68;
+}
+
+.summary-panel {
+  margin-top: 16px;
+  border: 1px solid rgba(215, 181, 104, 0.46);
+  border-radius: 8px;
+  padding: 16px;
+  background:
+    linear-gradient(135deg, rgba(215, 181, 104, 0.12), transparent 46%),
+    rgba(0, 0, 0, 0.24);
+}
+
+.summary-panel span {
+  display: block;
+  color: var(--gold);
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.summary-panel h3 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.summary-panel p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.72;
+}
+
+.summary-panel strong {
+  display: block;
+  margin-top: 12px;
+  color: var(--ink);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.fun-panel {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.fun-panel[hidden] {
+  display: none;
+}
+
+.fun-panel article {
+  border: 1px solid rgba(215, 181, 104, 0.24);
+  border-radius: 8px;
+  padding: 13px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.fun-panel span {
+  display: block;
+  color: var(--gold);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.fun-panel p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.68;
+}
+
+@keyframes reveal {
+  to {
+    transform: translateY(0) rotate(var(--tilt));
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1180px) {
+  .game-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .card-table {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .app-shell {
+    padding: 10px;
+  }
+
+  .topbar,
+  .time-actions,
+  .spread-title {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .game-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .control-panel,
+  .result-panel,
+  .card-table {
+    padding: 10px;
+    border-radius: 6px;
+  }
+
+  .topbar {
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 27px;
+  }
+
+  .topbar p,
+  .panel-heading p,
+  .now-panel p,
+  .reading-item p,
+  .summary-panel p,
+  .fun-panel p {
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .panel-heading h2,
+  .now-panel h2 {
+    font-size: 16px;
+  }
+
+  .field-grid {
+    gap: 8px;
+    margin: 12px 0;
+  }
+
+  label {
+    gap: 5px;
+    font-size: 12px;
+  }
+
+  input,
+  select {
+    height: 34px;
+    padding: 0 9px;
+    font-size: 13px;
+  }
+
+  .now-panel {
+    gap: 9px;
+    margin-bottom: 11px;
+    padding-top: 11px;
+  }
+
+  time {
+    font-size: 14px;
+  }
+
+  .primary-button,
+  .ghost-button {
+    min-height: 36px;
+    font-size: 14px;
+  }
+
+  .ghost-button.small {
+    min-height: 32px;
+  }
+
+  .card-table {
+    min-height: auto;
+  }
+
+  .spread-row + .spread-row {
+    margin-top: 18px;
+  }
+
+  .spread-title {
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+
+  .spread-title span {
+    font-size: 12px;
+  }
+
+  .spread-title strong {
+    font-size: 13px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .fortune-card {
+    min-height: 112px;
+    padding: 7px;
+    border-radius: 6px;
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.28);
+  }
+
+  .fortune-card::before {
+    inset: 4px;
+  }
+
+  .card-position {
+    font-size: 9px;
+    line-height: 1.2;
+  }
+
+  .card-rank {
+    margin-top: 4px;
+    font-size: 24px;
+  }
+
+  .card-suit {
+    right: 8px;
+    bottom: 7px;
+    font-size: 32px;
+  }
+
+  .card-name {
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    font-size: 9px;
+  }
+
+  .score-board {
+    gap: 7px;
+    margin: 10px 0;
+  }
+
+  .score-board div {
+    padding: 8px;
+  }
+
+  .score-board span {
+    font-size: 11px;
+  }
+
+  .score-board strong {
+    font-size: 18px;
+  }
+
+  .reading-list {
+    gap: 7px;
+  }
+
+  .reading-item {
+    padding: 8px 9px;
+  }
+
+  .reading-item h3 {
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+
+  .summary-panel {
+    margin-top: 10px;
+    padding: 10px;
+  }
+
+  .summary-panel h3 {
+    font-size: 15px;
+  }
+
+  .summary-panel strong {
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .fun-panel {
+    gap: 7px;
+  }
+
+  .fun-panel article {
+    padding: 8px;
+  }
+}

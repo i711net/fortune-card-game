@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>运势卡牌测试</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <h1>运势卡牌测试</h1>
+          <p>用含大小王的 54 张扑克牌，读取生日命运底色与指定时间的变化运势。</p>
+        </div>
+        <button id="quickNow" class="ghost-button" type="button">使用现在时间</button>
+      </header>
+
+      <section class="game-grid">
+        <form id="fortuneForm" class="control-panel">
+          <div class="panel-heading">
+            <h2>生日年月日时</h2>
+            <p>这四张代表命运底色：同一个生日时间会固定抽出同一组牌。</p>
+          </div>
+
+          <div class="field-grid">
+            <label>
+              年
+              <input id="birthYear" name="birthYear" type="number" min="1900" max="2100" placeholder="例如 1990" required />
+            </label>
+            <label>
+              月
+              <input id="birthMonth" name="birthMonth" type="number" min="1" max="12" placeholder="1-12" required />
+            </label>
+            <label>
+              日
+              <input id="birthDay" name="birthDay" type="number" min="1" max="31" placeholder="1-31" required />
+            </label>
+            <label>
+              时
+              <select id="birthHour" name="birthHour" required>
+                <option value="0">00 时</option>
+                <option value="1">01 时</option>
+                <option value="2">02 时</option>
+                <option value="3">03 时</option>
+                <option value="4">04 时</option>
+                <option value="5">05 时</option>
+                <option value="6">06 时</option>
+                <option value="7">07 时</option>
+                <option value="8">08 时</option>
+                <option value="9">09 时</option>
+                <option value="10">10 时</option>
+                <option value="11">11 时</option>
+                <option value="12">12 时</option>
+                <option value="13">13 时</option>
+                <option value="14">14 时</option>
+                <option value="15">15 时</option>
+                <option value="16">16 时</option>
+                <option value="17">17 时</option>
+                <option value="18">18 时</option>
+                <option value="19">19 时</option>
+                <option value="20">20 时</option>
+                <option value="21">21 时</option>
+                <option value="22">22 时</option>
+                <option value="23">23 时</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="now-panel">
+            <div>
+              <h2>预测年月日时</h2>
+              <p>可选择现在时间，也可手动选择未来或过去某个时间，用来预测那一刻的变化运势。</p>
+            </div>
+
+            <div class="field-grid compact">
+              <label>
+                年
+                <input id="targetYear" name="targetYear" type="number" min="1900" max="2100" required />
+              </label>
+              <label>
+                月
+                <input id="targetMonth" name="targetMonth" type="number" min="1" max="12" required />
+              </label>
+              <label>
+                日
+                <input id="targetDay" name="targetDay" type="number" min="1" max="31" required />
+              </label>
+              <label>
+                时
+                <select id="targetHour" name="targetHour" required>
+                  <option value="0">00 时</option>
+                  <option value="1">01 时</option>
+                  <option value="2">02 时</option>
+                  <option value="3">03 时</option>
+                  <option value="4">04 时</option>
+                  <option value="5">05 时</option>
+                  <option value="6">06 时</option>
+                  <option value="7">07 时</option>
+                  <option value="8">08 时</option>
+                  <option value="9">09 时</option>
+                  <option value="10">10 时</option>
+                  <option value="11">11 时</option>
+                  <option value="12">12 时</option>
+                  <option value="13">13 时</option>
+                  <option value="14">14 时</option>
+                  <option value="15">15 时</option>
+                  <option value="16">16 时</option>
+                  <option value="17">17 时</option>
+                  <option value="18">18 时</option>
+                  <option value="19">19 时</option>
+                  <option value="20">20 时</option>
+                  <option value="21">21 时</option>
+                  <option value="22">22 时</option>
+                  <option value="23">23 时</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="time-actions">
+              <time id="nowText">--</time>
+              <button id="fillNow" class="ghost-button small" type="button">填入现在</button>
+            </div>
+          </div>
+
+          <button class="primary-button" type="submit">开始预测</button>
+        </form>
+
+        <section class="card-table" aria-live="polite">
+          <div class="table-glow"></div>
+          <div class="spread-row">
+            <div class="spread-title">
+              <span>命运底色</span>
+              <strong>生日 年 月 日 时</strong>
+            </div>
+            <div id="birthCards" class="cards"></div>
+          </div>
+
+          <div class="spread-row">
+            <div class="spread-title">
+              <span>变化运势</span>
+              <strong>预测 年 月 日 时</strong>
+            </div>
+            <div id="nowCards" class="cards"></div>
+          </div>
+        </section>
+
+        <aside class="result-panel">
+          <div class="panel-heading">
+            <h2>预测运势</h2>
+            <p id="resultIntro">填写生日与预测时间后抽牌，查看 8 张牌按年月日时展开的运势解读。</p>
+          </div>
+          <div id="scoreBoard" class="score-board">
+            <div><span>情感</span><strong>--</strong></div>
+            <div><span>财富</span><strong>--</strong></div>
+            <div><span>行动</span><strong>--</strong></div>
+            <div><span>提醒</span><strong>--</strong></div>
+          </div>
+          <div id="readingList" class="reading-list"></div>
+          <section id="summaryPanel" class="summary-panel" hidden>
+            <span>综合目前运势</span>
+            <h3 id="summaryTitle">--</h3>
+            <p id="summaryText">--</p>
+            <strong id="summaryAdvice">--</strong>
+          </section>
+          <section id="funPanel" class="fun-panel" hidden>
+            <article>
+              <span>人际关系</span>
+              <p id="relationshipText">--</p>
+            </article>
+            <article>
+              <span>出行建议</span>
+              <p id="travelText">--</p>
+            </article>
+            <article>
+              <span>禁忌行动</span>
+              <p id="tabooText">--</p>
+            </article>
+            <article>
+              <span>幸运提示</span>
+              <p id="luckyText">--</p>
+            </article>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
