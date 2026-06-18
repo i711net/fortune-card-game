@@ -13,6 +13,13 @@
 
 素材建议放在 `assets` 文件夹里。后续如果你提供真实扑克牌图片，我可以把现在的代码牌面替换成你的图片素材。
 
+站点说明页面：
+
+- `about.html`：关于本站
+- `how-to-play.html`：玩法说明
+- `privacy.html`：隐私政策
+- `contact.html`：联系方式
+
 ## 发布
 
 这是纯静态网页游戏，可以直接发布到 GitHub Pages 或 Cloudflare Pages。
