@@ -187,6 +187,49 @@ time {
   transform: translateY(-1px);
 }
 
+.external-links {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.external-links h2 {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.external-links div {
+  display: grid;
+  gap: 8px;
+}
+
+.external-links a {
+  display: grid;
+  gap: 4px;
+  padding: 10px;
+  border: 1px solid rgba(215, 181, 104, 0.24);
+  border-radius: 6px;
+  color: var(--ink);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.04);
+  transition: border-color 0.18s ease, background 0.18s ease;
+}
+
+.external-links a:hover {
+  border-color: var(--gold);
+  background: rgba(215, 181, 104, 0.08);
+}
+
+.external-links strong {
+  font-size: 13px;
+}
+
+.external-links span {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
 .card-table {
   position: relative;
   overflow: hidden;
@@ -640,6 +683,15 @@ time {
   }
 
   .fun-panel article {
+    padding: 8px;
+  }
+
+  .external-links {
+    margin-top: 12px;
+    padding-top: 12px;
+  }
+
+  .external-links a {
     padding: 8px;
   }
 }

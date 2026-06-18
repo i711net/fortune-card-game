@@ -20,3 +20,21 @@
 Cloudflare Pages 发布步骤见：
 
 `DEPLOY_CLOUDFLARE.md`
+
+## 添加左侧链接
+
+编辑 `links.json` 即可改左侧“更多链接”。
+
+格式：
+
+```json
+[
+  {
+    "title": "网站名称",
+    "description": "一句说明",
+    "url": "https://example.com"
+  }
+]
+```
+
+上传到 GitHub 后，Cloudflare Pages 会自动更新。

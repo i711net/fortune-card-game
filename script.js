@@ -89,6 +89,8 @@ const relationshipText = document.querySelector("#relationshipText");
 const travelText = document.querySelector("#travelText");
 const tabooText = document.querySelector("#tabooText");
 const luckyText = document.querySelector("#luckyText");
+const externalLinks = document.querySelector("#externalLinks");
+const externalLinksList = document.querySelector("#externalLinksList");
 
 let displayedMoment = new Date();
 
@@ -171,6 +173,51 @@ function buildDateFromParts(year, month, day, hour) {
 
 function syncNow() {
   fillTargetFromDate(new Date());
+}
+
+function renderExternalLinks(links) {
+  if (!externalLinks || !externalLinksList || !Array.isArray(links) || links.length === 0) return;
+
+  externalLinksList.innerHTML = "";
+  links.forEach((item) => {
+    if (!item || !item.title || !item.url) return;
+
+    const link = document.createElement("a");
+    link.href = item.url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+
+    const title = document.createElement("strong");
+    title.textContent = item.title;
+    link.appendChild(title);
+
+    if (item.description) {
+      const description = document.createElement("span");
+      description.textContent = item.description;
+      link.appendChild(description);
+    }
+
+    externalLinksList.appendChild(link);
+  });
+
+  externalLinks.hidden = externalLinksList.children.length === 0;
+}
+
+async function loadExternalLinks() {
+  try {
+    const response = await fetch("./links.json", { cache: "no-store" });
+    if (!response.ok) return;
+    const links = await response.json();
+    renderExternalLinks(links);
+  } catch (error) {
+    renderExternalLinks([
+      {
+        title: "链接配置说明",
+        description: "发布到网站后，编辑 links.json 即可显示自己的链接。",
+        url: "./links.json",
+      },
+    ]);
+  }
 }
 
 function createCard(card, position, index) {
@@ -404,6 +451,7 @@ quickNow.addEventListener("click", syncNow);
 fillNow.addEventListener("click", syncNow);
 
 syncNow();
+loadExternalLinks();
 renderCards(
   [
     { name: "牌背", rank: "?", suit: "◇", color: "black", id: "BACK" },
