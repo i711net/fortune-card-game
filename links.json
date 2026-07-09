@@ -1,22 +1,12 @@
 [
   {
-    "title": "工具站",
-    "description": "网址导航",
-    "url": "https://i163.de5.net/"
+    "title": "i711 工具站",
+    "description": "这里可以换成你自己的站点说明",
+    "url": "https://example.com"
   },
   {
-    "title": "改图网页",
-    "description": "在线修改图片",
-    "url": "https://iusa.de5.net/"
-  },
-   {
-    "title": "声刻",
-    "description": "文字转语音",
-    "url": "https://i168.de5.net/"
-  },
-   {
-    "title": "PDF工具大全",
-    "description": "PDF工具",
-    "url": "https://i360.de5.net/zh/"
+    "title": "更多小游戏",
+    "description": "也可以放另一个网页游戏链接",
+    "url": "https://example.com/games"
   }
 ]

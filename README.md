@@ -17,6 +17,9 @@
 
 - `about.html`：关于本站
 - `how-to-play.html`：玩法说明
+- `card-meanings.html`：扑克牌含义
+- `reading-guide.html`：八张牌解读方法
+- `daily-fortune-tips.html`：每日运势建议
 - `privacy.html`：隐私政策
 - `contact.html`：联系方式
 

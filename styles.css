@@ -287,6 +287,10 @@ time {
   align-items: start;
 }
 
+.content-section {
+  margin-top: 22px;
+}
+
 .info-main,
 .info-side {
   border: 1px solid var(--line);
@@ -367,6 +371,57 @@ time {
 .policy-date {
   margin-bottom: 18px;
   color: var(--gold);
+  font-size: 13px;
+}
+
+.topic-grid,
+.meaning-grid {
+  display: grid;
+  gap: 12px;
+}
+
+.topic-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: 20px;
+}
+
+.topic-grid a,
+.meaning-card {
+  display: grid;
+  gap: 8px;
+  border: 1px solid rgba(215, 181, 104, 0.22);
+  border-radius: 8px;
+  padding: 14px;
+  color: var(--ink);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.topic-grid a:hover {
+  border-color: var(--gold);
+  background: rgba(215, 181, 104, 0.08);
+}
+
+.topic-grid strong,
+.meaning-card strong {
+  font-size: 15px;
+}
+
+.topic-grid span,
+.meaning-card span {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.meaning-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 14px;
+}
+
+.meaning-card em {
+  color: var(--gold);
+  font-style: normal;
   font-size: 13px;
 }
 
@@ -875,5 +930,10 @@ time {
   .info-side li {
     font-size: 13px;
     line-height: 1.65;
+  }
+
+  .topic-grid,
+  .meaning-grid {
+    grid-template-columns: 1fr;
   }
 }
